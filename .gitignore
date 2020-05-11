@@ -1,0 +1,15 @@
+﻿
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Models/bin/Debug/netstandard2.1
+/Models/obj/Debug/netstandard2.1
+/.vs/Weather/v16
+/Weather/bin/Debug/netstandard2.1
+/Weather/obj/Debug/netstandard2.1
+/Weather.Android/bin/Debug
+/Weather.Android/obj/Debug/90/android
+/Weather.Android/obj/Debug/90
+
+/Weather.iOS/obj/iPhoneSimulator/Debug
