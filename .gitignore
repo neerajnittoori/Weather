@@ -13,3 +13,8 @@
 /Weather.Android/obj/Debug/90
 
 /Weather.iOS/obj/iPhoneSimulator/Debug
+/Models/obj
+/Services/obj/Debug
+/Weather/obj
+/Weather.Android/obj
+/Weather.iOS/obj
