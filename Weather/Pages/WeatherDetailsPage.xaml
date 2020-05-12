@@ -14,10 +14,9 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-    <Grid>
-        <StackLayout IsVisible="{Binding ShowErrorMessage, Converter={StaticResource BoolToInvertBoolConvertor}}">
+    <StackLayout VerticalOptions="CenterAndExpand">
       <ListView ItemsSource="{Binding WeatherDetailsList}"
-                IsVisible="{Binding IsRefreshing, Converter={StaticResource BoolToInvertBoolConvertor}}"
+                IsVisible="{Binding ShowPageContents}"
                 RowHeight="80"
                 CachingStrategy="RecycleElement">
         <ListView.ItemTemplate>
@@ -35,19 +34,18 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-            </StackLayout>
-        <StackLayout IsVisible="{Binding ShowErrorMessage}"
+      <StackLayout IsVisible="{Binding ShowErrorMessage}"
                      VerticalOptions="CenterAndExpand">
       <Label Text="Something went wrong. Please Try again!" HorizontalOptions="CenterAndExpand"></Label>
       <Button Text="Retry"
               Command="{Binding LoadData}"></Button>
      </StackLayout>
       <ActivityIndicator IsRunning="True"
-                         IsVisible="{Binding IsRefreshing}"
+                         IsVisible="{Binding IsViewRefreshing}"
                          VerticalOptions="Center"
                          HorizontalOptions="Center"
                          HeightRequest="52"
                          WidthRequest="52"/>
-    </Grid>
+    </StackLayout>
   </ContentPage.Content>
 </ContentPage>

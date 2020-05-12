@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Core.Models;
-using Core.Services.Implementations;
 using Core.Services.Interfaces;
 using Xamarin.Forms;
 using Weather.DisplayModels;
@@ -19,9 +18,10 @@ namespace Weather.ViewModels.Implementations
     private Location _location;
     private ObservableCollection<WeatherDetailsDisplayModel> _weatherDetailsList;
     private string _title;
-    private bool _isRefreshing;
+    private bool _isViewRefreshing;
     private bool _showErrorMessage;
     private IWeatherForecastService _weatherForecastService;
+    private bool _showPageContents;
     #region Properties
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -48,13 +48,23 @@ namespace Weather.ViewModels.Implementations
       }
     }
 
-    public bool IsRefreshing
+    public bool IsViewRefreshing
     {
-      get => _isRefreshing;
+      get => _isViewRefreshing;
       set
       {
-        _isRefreshing = value;
-        OnPropertyChanged(nameof(IsRefreshing));
+        _isViewRefreshing = value;
+        OnPropertyChanged(nameof(IsViewRefreshing));
+      }
+    }
+
+    public bool ShowPageContents
+    {
+      get => _showPageContents;
+      set
+      {
+        _showPageContents = value;
+        OnPropertyChanged(nameof(ShowPageContents));
       }
     }
 
@@ -89,13 +99,6 @@ namespace Weather.ViewModels.Implementations
       _weatherForecastService = weatherForecastService;
     }
 
-    //public WeatherDetailsPageViewModel(Location location)
-    //{
-    //  _location = location;
-    //  WeatherDetailsList = new ObservableCollection<WeatherDetailsDisplayModel>();
-    //  Title = $"{location.Name} Forecast";
-    //}
-
     #endregion
 
     #region Methods
@@ -104,10 +107,12 @@ namespace Weather.ViewModels.Implementations
     {
       try
       {
-        IsRefreshing = true;
+        IsViewRefreshing = true;
         ShowErrorMessage = false;
+        ShowPageContents = false;
         var forecastResponse = await _weatherForecastService.GetFiveDayWeatherForecast(_location.Id);
         BuildWeatherDetailsDisplayModelList(forecastResponse);
+        ShowPageContents = true;
       }
       catch (Exception e)
       { 
@@ -116,7 +121,7 @@ namespace Weather.ViewModels.Implementations
       }
       finally
       {
-        IsRefreshing = false;
+        IsViewRefreshing = false;
       }
     }
 
