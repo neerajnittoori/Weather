@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Models;
+using Autofac;
+using Core;
+using Core.Models;
+using Weather.Pages;
+using Weather.ViewModels.Interfaces;
 using Xamarin.Forms;
+using Xamarin.Forms.Core;
 
-namespace Core.ViewModels.Implementations
+namespace Weather.ViewModels.Implementations
 {
-    public class WeatherListPageViewModel : INotifyPropertyChanged
+    public class LocationListPageViewModel : INotifyPropertyChanged, ILocationListPageViewModel
     {
         private ObservableCollection<Location> _locationList;
 
-        public WeatherListPageViewModel()
+        public LocationListPageViewModel()
         {
             LocationList = GetLocationsListToSearch();
-            NavigateToWeatherDetailsPage = new Command<Location>(execute: async (u) =>
-            {
-                await NavigateToWeatherDetailsPageAsync(u);
-            });
-        }
+    }
 
         #region Properties
 
@@ -39,13 +38,22 @@ namespace Core.ViewModels.Implementations
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ICommand NavigateToWeatherDetailsPage;
+        public ICommand NavigateToWeatherDetailsPage
+        {
 
-        #endregion
+          get
+          {
+            return new Command<Location>(async (u) => await NavigateToWeatherDetailsPageAsync(u));
+          }
+        }
 
-        #region Methods
+        public INavigation Navigation { get; set; }
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+    #endregion
+
+    #region Methods
+
+    protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
@@ -79,10 +87,23 @@ namespace Core.ViewModels.Implementations
 
         private async Task NavigateToWeatherDetailsPageAsync(Location selectedLocation)
         {
+          if (Navigation != null)
+          {
+            var weatherDetailsPageViewModel = CoreInitializer.Container.Resolve<IWeatherDetailsPageViewModel>();
+            weatherDetailsPageViewModel.DataTransfer = selectedLocation;
+            var weatherDetailsPage = new WeatherDetailsPage
+                                     {
+                                       BindingContext = weatherDetailsPageViewModel
+                                     };
+            await Navigation.PushAsync(weatherDetailsPage);
+          }
+          else
+          {
+            throw new Exception( " ViewModel Requires a Valid Navigation");
+          }
         }
 
 
-
-        #endregion
-    }
+    #endregion
+  }
 }

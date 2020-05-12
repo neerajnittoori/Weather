@@ -18,3 +18,9 @@
 /Weather/obj
 /Weather.Android/obj
 /Weather.iOS/obj
+/Services/obj
+/Core/obj
+/Core/bin/Debug/netstandard2.0
+/Services/bin/Debug/netstandard2.1
+/Weather.iOS/bin/iPhoneSimulator/Debug
+/.vs/Weather/DesignTimeBuild

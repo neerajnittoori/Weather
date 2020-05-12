@@ -5,25 +5,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Weather.MainPage"
-             xmlns:controls="clr-namespace:Weather.Controls">
+             xmlns:controls="clr-namespace:Weather.Controls"
+             x:Name="LocationListPage"
+             Title="Pick a Location">
+  <ContentPage.Content>
     <StackLayout>
-        <ListView ItemsSource="{Binding LocationList}"
-                  x:Name="list">
-              <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <!--<StackLayout 
-                                           HorizontalOptions="CenterAndExpand"
-                                           VerticalOptions="CenterAndExpand">
-                                    <Label Text="{Binding Name}"
-                                           VerticalTextAlignment="Center"
-                                           HorizontalOptions="CenterAndExpand"
-                                           VerticalOptions="CenterAndExpand"/>
-                                        </StackLayout>-->
-                                    
-                    </ViewCell>
-                                </DataTemplate>
-                  </ListView.ItemTemplate>
-        </ListView>
+      <ListView ItemsSource="{Binding LocationList}"
+                CachingStrategy="RecycleElement">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                  <controls:OneRowControl PrimaryText="{Binding Name}"
+                                          Command="{Binding BindingContext.NavigateToWeatherDetailsPage, Source={x:Reference LocationListPage}}"
+                                          CommandParameter="{Binding .}">
+                  </controls:OneRowControl>
+              </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
     </StackLayout>
+  </ContentPage.Content>
 </ContentPage>

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Core.ViewModels.Implementations;
 using Xamarin.Forms;
 using Weather.Controls;
+using Weather.ViewModels.Implementations;
+
 namespace Weather
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
@@ -14,12 +15,10 @@ namespace Weather
         {
           
             InitializeComponent();
-            this.BindingContext = new WeatherListPageViewModel();
-
-        }
-
-        void ListView_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-        {
+            this.BindingContext = new LocationListPageViewModel
+                                  {
+                                    Navigation = Navigation
+                                  };
 
         }
     }

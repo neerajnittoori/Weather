@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Weather.Controls.OneRowControl">
+             x:Class="Weather.Controls.OneRowControl"
+             x:Name="OneRowControlView">
     <ContentView.Content>
-         <StackLayout
-             x:Name="CellLayout"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
-        <Label Text="{Binding PrimaryText}"
+         <StackLayout 
+                 x:Name="CellLayout"
+                 HeightRequest="40"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+        <Label Text="{Binding PrimaryText, Source={x:Reference OneRowControlView}}"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"/>
+                VerticalOptions="FillAndExpand"/>
             </StackLayout>
     </ContentView.Content>
 </ContentView>

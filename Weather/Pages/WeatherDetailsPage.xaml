@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Weather.Controls;assembly=Weather"
+             xmlns:convertors="clr-namespace:Weather.Convertors;assembly=Weather"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="Weather.Pages.WeatherDetailsPage">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <convertors:BoolToInvertBoolConvertor x:Key="BoolToInvertBoolConvertor" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <Grid>
+      <ListView ItemsSource="{Binding WeatherDetailsList}"
+                IsVisible="{Binding IsRefreshing, Converter={StaticResource BoolToInvertBoolConvertor}}"
+                RowHeight="80"
+                CachingStrategy="RecycleElement">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout VerticalOptions="FillAndExpand"
+                           Spacing="0"
+                           Padding="10"
+                           HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding ForecastDateTimeString}"/>
+                <Label Text="{Binding Temperature}"/>
+                <Label Text="{Binding WindSpeed}"/>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+        <StackLayout IsVisible="{Binding ShowErrorMessage}">
+      <Label Text="Something went wrong. Please Retry!"></Label>
+      <Button Text="Retry"
+              Command="{Binding LoadData}"></Button>
+     </StackLayout>
+      <ActivityIndicator IsRunning="True"
+                         IsVisible="{Binding IsRefreshing}"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"
+                         HeightRequest="52"
+                         WidthRequest="52"/>
+    </Grid>
+  </ContentPage.Content>
+</ContentPage>

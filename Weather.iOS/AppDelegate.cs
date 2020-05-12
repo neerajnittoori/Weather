@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Core;
 using Foundation;
 using UIKit;
 
@@ -23,6 +23,7 @@ namespace Weather.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            CoreInitializer.RegisterImplementations(new UIInitializer());
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

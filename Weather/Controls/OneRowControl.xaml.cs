@@ -18,8 +18,8 @@ namespace Weather.Controls
 
             recognizer.Tapped += (sender, e) =>
             {
-                if (Command?.CanExecute(CommandParameter) ?? false)
-                    Command?.Execute(CommandParameter);
+              if (Command?.CanExecute(CommandParameter) ?? false)
+                Command?.Execute(CommandParameter);
             };
 
             CellLayout.GestureRecognizers.Clear();
@@ -41,7 +41,10 @@ namespace Weather.Controls
         public string PrimaryText
         {
             get => (string)GetValue(PrimaryTextProperty);
-            set => SetValue(PrimaryTextProperty, value);
+            set
+      {
+         SetValue(PrimaryTextProperty, value);
+      }
         }
     }
 }
