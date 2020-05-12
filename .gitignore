@@ -24,3 +24,5 @@
 /Services/bin/Debug/netstandard2.1
 /Weather.iOS/bin/iPhoneSimulator/Debug
 /.vs/Weather/DesignTimeBuild
+*.json
+.vs/Weather/xs/UserPrefs.xml

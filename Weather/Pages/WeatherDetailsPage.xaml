@@ -15,6 +15,7 @@
   </ContentPage.Resources>
   <ContentPage.Content>
     <Grid>
+        <StackLayout IsVisible="{Binding ShowErrorMessage, Converter={StaticResource BoolToInvertBoolConvertor}}">
       <ListView ItemsSource="{Binding WeatherDetailsList}"
                 IsVisible="{Binding IsRefreshing, Converter={StaticResource BoolToInvertBoolConvertor}}"
                 RowHeight="80"
@@ -34,8 +35,10 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-        <StackLayout IsVisible="{Binding ShowErrorMessage}">
-      <Label Text="Something went wrong. Please Retry!"></Label>
+            </StackLayout>
+        <StackLayout IsVisible="{Binding ShowErrorMessage}"
+                     VerticalOptions="CenterAndExpand">
+      <Label Text="Something went wrong. Please Try again!" HorizontalOptions="CenterAndExpand"></Label>
       <Button Text="Retry"
               Command="{Binding LoadData}"></Button>
      </StackLayout>
