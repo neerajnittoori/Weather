@@ -16,17 +16,10 @@ namespace Core.Services.Implementations
 
     public async  Task<ForecastResponse> GetFiveDayWeatherForecast(int locationId)
     {
-      string forecastAddress = "http://api.openweathermap.org/data/2.5/forecast?appid=3c4bbae75023b7aefbb2246bc777e336&id=" + locationId;
-      //var response = await HttpHelper.Client.GetAsync(forecastAddress);
-      //var result = await response.Content.ReadAsStringAsync();
-      //if (!string.IsNullOrEmpty(result))
-      //{
-      //  return JsonConvert.DeserializeObject<ForecastResponse>(result);
-      //}
-      //else
-      //{
-      //  throw new Exception("Invalid Response Received");
-      //}
+      //Your WeatherAPI Token goes here...
+      var weatherApiToken "XYZ";
+      string forecastAddress = "http://api.openweathermap.org/data/2.5/forecast?appid=" + weatherApiToken + "&id=" + locationId;
+      
       return await _httpHelper.GetAsync<ForecastResponse>(forecastAddress);
     }
 
